@@ -1,0 +1,68 @@
+CREATE DATABASE proyectopeliculas;
+
+USE proyectopeliculas;
+
+/*Login*/
+CREATE TABLE usuario (
+    idusuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    correo VARCHAR(150) UNIQUE,
+    password VARCHAR(255),
+    rol VARCHAR(20)
+);
+
+/*Catalogo de movies*/
+CREATE TABLE pelicula (
+    idpelicula INT AUTO_INCREMENT PRIMARY KEY,
+    idtmdb INT UNIQUE,
+    titulo VARCHAR(150),
+    descripcion TEXT,
+    genero VARCHAR(50),
+    anio INT,
+    imagen TEXT,
+    precioRenta DECIMAL(10,2),
+    disponible BOOLEAN
+);
+
+/*Reseñas*/
+CREATE TABLE resena (
+    idresena INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT,
+    idpelicula INT,
+    comentario TEXT,
+    calificacion INT,
+    fecha DATE,
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idpelicula) REFERENCES pelicula(idpelicula)
+);
+
+/*Lista de favoritos*/
+CREATE TABLE favorito (
+    idfavorito INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT,
+    idpelicula INT,
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idpelicula) REFERENCES pelicula(idpelicula),
+    UNIQUE (idusuario, idpelicula)
+);
+
+/*Carrito de compras*/
+CREATE TABLE carrito (
+    idcarrito INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT,
+    idpelicula INT,
+    precio DECIMAL(10,2),
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario),
+    FOREIGN KEY (idpelicula) REFERENCES pelicula(idpelicula)
+);
+
+/*Renta d epeliculas*/
+CREATE TABLE renta (
+    idrenta INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT,
+    fechaRenta DATE,
+    fechaVencimiento DATE,
+    total DECIMAL(10,2),
+    estado VARCHAR(30),
+    FOREIGN KEY (idusuario) REFERENCES usuario(idusuario)
+);
