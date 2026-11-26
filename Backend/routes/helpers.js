@@ -1,5 +1,12 @@
 // Utilidades compartidas por las rutas.
 
+// Crea un Error con codigo HTTP (lo interpreta manejarError).
+function crearError(status, mensaje) {
+    const error = new Error(mensaje);
+    error.status = status;
+    return error;
+}
+
 // Convierte a entero positivo; devuelve null si no es valido.
 function entero(valor) {
     const n = Number(valor);
@@ -21,4 +28,4 @@ function manejarError(res, error, mensajeDefault) {
     return res.status(500).json({ mensaje: mensajeDefault });
 }
 
-module.exports = { entero, manejarError };
+module.exports = { crearError, entero, manejarError };

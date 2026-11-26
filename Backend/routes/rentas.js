@@ -1,8 +1,7 @@
 const express = require('express');
 const sequelize = require('../conexion/db');
 const { Renta, Carrito, Usuario } = require('../modelos/asociaciones');
-const { crearError } = require('../servicios/tmdbService');
-const { entero, manejarError } = require('./helpers');
+const { crearError, entero, manejarError } = require('./helpers');
 
 const router = express.Router();
 
