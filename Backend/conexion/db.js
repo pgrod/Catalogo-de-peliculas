@@ -1,10 +1,9 @@
-
 const { Sequelize } = require('sequelize');
 
 const sequelize = new Sequelize(
     'proyectopeliculas',
     'root',
-    'admin',
+    process.env.DB_PASSWORD,
     {
         host: 'localhost',
         dialect: 'mysql'

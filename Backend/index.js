@@ -1,13 +1,20 @@
+require('dotenv').config({ quiet: true });
 const express = require('express');
 const cors = require('cors');
 const sequelize = require('./conexion/db');
 const Usuario = require('./modelos/Usuario');
-const Reseña = require('./modelos/Resena');
+const Resena = require('./modelos/Resena');
+require('./modelos/asociaciones');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Favorito, Carrito y Renta
+app.use('/api/favoritos', require('./routes/favoritos'));
+app.use('/api/carrito', require('./routes/carrito'));
+app.use('/api/rentas', require('./routes/rentas'));
 
 app.get('/usuarios', async (req, res) => {
     try {
